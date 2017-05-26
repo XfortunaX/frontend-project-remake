@@ -6,26 +6,23 @@ import css from '../../css/concede.css';
 
 import ModalView from './modalView';
 import Router from '../modules/router/router';
-import template from '../templates/concede.pug';
-import EvenEmitter from '../modules/eventEmitter/eventEmitter';
+import template2 from '../templates/concede.pug';
 
 const router = new Router();
-const ee = new EvenEmitter();
 
-export default class ConcedeModal extends ModalView {
+export default class ConcedeMpModal extends ModalView {
   constructor() {
-    super('Выход', template);
+    super('Выход', template2);
   }
   render() {
     super.render();
     document.querySelector('.choose__yes').addEventListener('click', () => {
-      ee.emit('destroyGame');
       router.go('/');
     });
     document.querySelector('.choose__no').addEventListener('click', () => {
-      router.go('/game');
+      router.go('/mp');
     });
-    this.onClose(() => { router.go('/game'); });
+    this.onClose(() => { router.go('/mp'); });
   }
 
   onClose(func) {

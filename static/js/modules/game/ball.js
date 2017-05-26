@@ -22,14 +22,6 @@ export class Ball extends GameObject {
         return this.radius;
     }
 
-    setSize(radius) {
-      this.radius = radius;
-      this.Geometry = new THREE.SphereGeometry(this.radius, 20, 20);
-      this.Material = new THREE.MeshLambertMaterial({ color: 0xE7DF32 });
-      this.model = new THREE.Mesh(this.Geometry, this.Material);
-      this.model.position.set(this.X, this.Y, this.Z);
-    }
-
     getSide() {
         return this.side;
     }

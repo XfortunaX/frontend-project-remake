@@ -28,9 +28,7 @@ export default class LoginModal extends ModalView {
           .catch(() => { this.showError(); });
       }
     });
-    this.onClose(() => router.go('/'));
   }
-
   show() {
     if (!userModel.isAuthorised()) {
       super.show();

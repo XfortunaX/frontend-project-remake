@@ -8,24 +8,24 @@ import Transport from '../modules/gameTransport/transport';
 
 export default class GameModel {
   constructor() {
-    // if (GameModel.instance) {
-    //   return GameModel.instance;
-    // }
-    this.transport = new Transport();
-    // GameModel.instance = this;
-  }
-  findOpponent() {
-    if (!this.transport) {
-      this.transport = new Transport();
+    if (GameModel.instance) {
+      return GameModel.instance;
     }
+    // transport.send() lala
+    this.transport = new Transport();
+    GameModel.instance = this;
+  }
+
+  // handleEvent(message) {
+  //	console.log(`Hi from GM ${message}`);
+  // 	ee.emit('msg', message);
+  // }
+
+  findOpponent() {
     this.transport.send('com.aerohockey.mechanics.requests.JoinGame$Request', '{}');
   }
 
   sendButton(button, frameTime) {
     this.transport.send('com.aerohockey.mechanics.base.ClientSnap', JSON.stringify({ button, frameTime }));
-  }
-  exit(){
-    this.transport.closeSocket();
-    delete this.transport;
   }
 }

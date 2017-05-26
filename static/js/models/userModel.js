@@ -4,10 +4,7 @@
 
 import API from '../modules/api/api';
 
-import EventEmitter, {LOGINED, LOGOUTED} from '../modules/eventEmitter/eventEmitter';
-
 const api = new API();
-const ee = new EventEmitter();
 
 export default class UserModel {
 
@@ -31,7 +28,6 @@ export default class UserModel {
       api.logout()
         .then(() => {
           this.user.isAuthorised = false;
-          ee.emit(LOGOUTED);
           resolve();
         });
     });
@@ -54,7 +50,7 @@ export default class UserModel {
           this.user.email = json.email;
           this.user.id = json.id;
           this.user.rating = json.rating;
-          this.user.changeRating = 0;
+          this.user.newRating = this.user.rating;
           resolve(json);
         })
         .catch((err) => {
@@ -77,10 +73,6 @@ export default class UserModel {
           this.user.isAuthorised = true;
           this.user.nickname = json.login;
           this.user.email = json.email;
-          this.user.id = json.id;
-          this.user.rating = json.rating;
-          this.user.changeRating = 0;
-          ee.emit(LOGINED);
           done(json);
         })
         .catch((json) => {
@@ -103,9 +95,6 @@ export default class UserModel {
           this.user.isAuthorised = true;
           this.user.nickname = json.login;
           this.user.email = json.email;
-          this.user.id = json.id;
-          this.user.rating = json.rating;
-          this.user.changeRating = 0;
           done(json);
         })
         .catch((errorPromise) => {
