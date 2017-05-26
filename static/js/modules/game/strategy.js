@@ -38,10 +38,12 @@ export default class SingleStrategy {
     this.spotLight.position.set(0, 40, 40);
     this.scene.add(this.spotLight);
 
-    this.x = window.innerWidth * 0.8;
-    this.y = this.x * 0.56;
 
-    this.renderer = new THREE.WebGLRenderer();
+    this.x = window.innerWidth * 0.95;
+    this.y = window.innerHeight * 0.8;
+
+    this.renderer = new THREE.WebGLRenderer( { alpha: true } );
+    this.renderer.setClearColor( 0x000000, 0 ); // the default
     this.renderer.setSize(this.x, this.y);
     document.body.appendChild(this.renderer.domElement);
 
@@ -85,7 +87,7 @@ export default class SingleStrategy {
     this.pos.y = this.platformEnemy.getPosition().y;
     this.pos.z = this.platformEnemy.getPosition().z;
     this.bot = new Bot(this.pos);
-
+    this.bot.setState(true);
 
     this.pointViewG = new THREE.SphereGeometry(0, 0, 0);
     this.pointViewM = new THREE.MeshNormalMaterial({ color: 0xffff00 });
@@ -113,10 +115,6 @@ export default class SingleStrategy {
 
     if (this.keyboard2.pressed('right')) {
       this.control('right');
-    }
-
-    if (this.keyboard2.down('B')) {
-      this.control('B');
     }
 
     if (this.keyboard2.down('space')) {
@@ -193,8 +191,6 @@ export default class SingleStrategy {
           }
         }
       }
-    } else if (button === 'B') {
-      this.bot.setState(true);
     } else if (button === 'space') {
       if (this.ball.getMove() === false) {
         this.ball.setMove(true);
